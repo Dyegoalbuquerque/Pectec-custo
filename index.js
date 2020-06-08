@@ -1,7 +1,7 @@
 import express from 'express';
 import custoRoute from './router';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../../../swagger.json';
+import swaggerDocument from './swagger.json';
 
 let router = express.Router();
 

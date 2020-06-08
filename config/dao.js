@@ -7,7 +7,7 @@ const path = require('path');
 export class Dao {
 
     constructor(tipo){
-        this.fonte = path.resolve(`../../../../Pectec-database/database/${tipo.name}.json`);
+        this.fonte = path.resolve(`../../Pectec/Pectec-database/database/${tipo.name}.json`);
         this.tipo = tipo;
     }
 
