@@ -1,6 +1,5 @@
 
 import { LancamentoRepository } from '../repositorys/lancamento-repository';
-import { CategoriaRepository } from '../repositorys/categoria-repository';
 import { SubcategoriaRepository } from '../repositorys/subCategoria-repository';
 import { Constantes } from '../constantes';
 import { Lancamento } from '../models/lancamento';
@@ -10,7 +9,6 @@ export class CustoService {
 
     constructor(container) {
         this.lancamentoRepository = container.get(LancamentoRepository);
-        this.categoriaRepository = container.get(CategoriaRepository);
         this.subcategoriaRepository = container.get(SubcategoriaRepository);
     }
 
@@ -21,7 +19,7 @@ export class CustoService {
                 Lancamento.ordenarDesc : Model.ordenar;
 
         let result = await this.lancamentoRepository.obterApartirDe(ano, parametroQuery);
-        let subcategorias = await this.subcategoriaRepository.obterTodos();
+        let subcategorias = await this.subcategoriaRepository.obterTodasSubcategorias();
 
         for (let i = 0; i < result.resultado.length; i++) {
             result.resultado[i].subcategoria = subcategorias.filter(c => c.id == result.resultado[i].subcategoriaId)[0];
