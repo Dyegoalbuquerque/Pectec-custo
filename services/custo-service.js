@@ -3,6 +3,7 @@ import { LancamentoRepository } from '../repositorys/lancamento-repository';
 import { SubcategoriaRepository } from '../repositorys/subCategoria-repository';
 import { Constantes } from '../constantes';
 import { Lancamento } from '../models/lancamento';
+import { CustoDto } from '../dtos/custoDto';
 import { Model } from '../models/model';
 
 export class CustoService {
@@ -10,6 +11,7 @@ export class CustoService {
     constructor(container) {
         this.lancamentoRepository = container.get(LancamentoRepository);
         this.subcategoriaRepository = container.get(SubcategoriaRepository);
+        this.custoDto = container.get(CustoDto);
     }
 
     obterLancamentosApartirDe = async (ano, parametroQuery) => {
@@ -25,7 +27,7 @@ export class CustoService {
             result.resultado[i].subcategoria = subcategorias.filter(c => c.id == result.resultado[i].subcategoriaId)[0];
         }
 
-        return result;
+        return this.custoDto.montarLancamentos(result);
     }
 
     removerLancamento = async (id) => {
@@ -72,9 +74,7 @@ export class CustoService {
         });
 
         let totalSaldo = totalEntrada - totalSaida;
-
-        let balanco = {totalSaida: parseFloat(totalSaida.toFixed(2)), totalEntrada: parseFloat(totalEntrada.toFixed(2)), totalSaldo: parseFloat(totalSaldo.toFixed(2))}
-
-        return balanco;
+        
+        return this.custoDto.montarBalancoLancamento(totalEntrada, totalSaida, totalSaldo);
     }
 }
