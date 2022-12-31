@@ -1,5 +1,5 @@
 import express from 'express';
-import { CustoController } from './controllers/custo-controller';
+import { CustoController } from '../controllers/custo-controller';
 import { Container } from "typedi";
 
 let router = express.Router();

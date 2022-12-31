@@ -35,4 +35,28 @@ export class Constantes{
     static StatusLancamentoPago(){
         return `PG`;
     }
+
+    static TipoConsumoInsumo(){
+        return `I`;
+    }
+
+    static TipoConsumoRacao(){
+        return `R`;
+    }
+
+    static TipoConsumoMedicamento(){
+        return `M`;
+    }
+
+    static UnidadeMedidaKg(){
+        return `Kg`;
+    }
+
+    static UnidadeMedidaMl(){
+        return `Ml`;
+    }
+
+    static UnidadeMedidaMg(){
+        return `Mg`;
+    }
 }
