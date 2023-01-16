@@ -1,10 +1,11 @@
 import { Repository } from './repository';
 import { QueryHelper } from '../repositorys/helpers/query-helper';
+import { Lancamento } from '../models/lancamento';
 
 export class LancamentoRepository extends Repository {
 
     constructor() {
-        super("lancamentos");
+        super("lancamentos", Lancamento);
     }
 
     async obterPorCicloId(cicloId) {
@@ -14,7 +15,7 @@ export class LancamentoRepository extends Repository {
     }
 
     async obterApartirDePorAno(ano) {        
-        let query = { ano: { $gte: ano } };
+        let query = { ano: { $gte: parseInt(ano) } };
 
         return await this.filtrar(query);
     }

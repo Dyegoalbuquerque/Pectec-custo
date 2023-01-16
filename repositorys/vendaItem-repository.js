@@ -5,7 +5,7 @@ import { VendaItem } from '../models/vendaItem';
 export class VendaItemRepository extends Repository {
 
    constructor() {
-      super(VendaItem);
+      super("vendaItems", VendaItem);
    }
 
    async obterPorVendaIds(vendaIds) {      

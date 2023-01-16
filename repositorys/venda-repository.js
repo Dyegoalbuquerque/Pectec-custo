@@ -6,7 +6,7 @@ import { QueryHelper } from './helpers/query-helper';
 export class VendaRepository extends Repository {
 
    constructor() {
-      super(Venda);
+      super("vendas", Venda);
    }
 
    async obterPorAno(ano, parametroQuery) {
