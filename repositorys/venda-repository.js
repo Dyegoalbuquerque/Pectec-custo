@@ -10,11 +10,10 @@ export class VendaRepository extends Repository {
    }
 
    async obterPorAno(ano, parametroQuery) {
+      let query = { ano: ano };
 
-      let todos = this.dao.obterTodos();
+      let filtradosPorAno = await this.filtrar(query);
 
-      let filtradosPorAno = todos.filter(e => e.ano == ano);
-
-      return QueryHelper.aplicarQuery(filtradosPorAno, parametroQuery);
+      return QueryHelper.aplicarQuery(filtradosPorAno, parametroQuery);      
    }
 }

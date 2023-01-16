@@ -1,27 +1,22 @@
 import { Repository } from './repository';
-import { Lancamento } from '../models/lancamento';
 import { QueryHelper } from '../repositorys/helpers/query-helper';
 
 export class LancamentoRepository extends Repository {
 
     constructor() {
-        super(Lancamento);
+        super("lancamentos");
     }
 
     async obterPorCicloId(cicloId) {
-        let todos = this.dao.obterTodos();
+        let query = { cicloId: cicloId };
 
-        let result = todos.filter(e => e.cicloId == cicloId);
-
-        return result;
+        return await this.filtrar(query);
     }
 
-    async obterApartirDePorAno(ano) {
-        let todos = this.dao.obterTodos();
+    async obterApartirDePorAno(ano) {        
+        let query = { ano: { $gte: ano } };
 
-        let filtradosPorAno = todos.filter(e => e.ano >= ano);
-
-        return filtradosPorAno;
+        return await this.filtrar(query);
     }
 
     async obterApartirDe(ano, parametroQuery) {
@@ -31,11 +26,9 @@ export class LancamentoRepository extends Repository {
         return QueryHelper.aplicarQuery(filtradosPorAno, parametroQuery);
     }
 
-    async obterPorMes(mes) {
-        let todos = this.dao.obterTodos();
+    async obterPorMes(mes) {        
+        let query = { mes: new Date().getNameMonthPtBr(mes)};
 
-        let result = todos.filter(e => e.mes == new Date().getNameMonthPtBr(mes));
-
-        return result;
+        return await this.filtrar(query);
     }
 }

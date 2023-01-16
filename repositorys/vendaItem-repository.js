@@ -8,11 +8,9 @@ export class VendaItemRepository extends Repository {
       super(VendaItem);
    }
 
-   async obterPorVendaIds(vendaIds) {
-      let result = this.dao.obterTodos();
+   async obterPorVendaIds(vendaIds) {      
+      let query = { vendaId: { $in: vendaIds } };
 
-      result = result.filter(r => vendaIds.includes(r.vendaId));
-
-      return result;
+      return await this.filtrar(query);
    }
 }
