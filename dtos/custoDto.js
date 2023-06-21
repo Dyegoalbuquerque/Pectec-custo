@@ -40,4 +40,13 @@ export class CustoDto {
             totalSaldo: parseFloat(totalSaldo.toFixed(2))
         };
     }
+
+    montarRelatorioCusto(itens, dataInicial, dataFinal, total){
+        return {
+            dataInicial,
+            dataFinal,
+            itens,
+            total
+        };
+    }
 }

@@ -16,4 +16,6 @@ router.post('/lancamentos/confirmar-pagamento', custoController.confirmarPagamen
 
 router.get('/lancamentos/balanco', custoController.obterBalancoLancamentos);
 
+router.get('/relatorios/custo', custoController.obterRelatorio);
+
 export default router;

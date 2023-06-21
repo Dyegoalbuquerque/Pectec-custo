@@ -61,9 +61,21 @@ export class CustoController extends BaseController {
 
    obterBalancoLancamentos = async (req, res) => {
       try {
-         let ano = req.query.ano;
-         let data = await this.custoService.obterBalancoLancamentos(ano);
+         let data = await this.custoService.obterBalancoLancamentos();
          return res.send(200, data);
+
+      } catch (e) {
+         return this.tratarErro(e, res);
+      }
+   }
+
+   obterRelatorio = async (req, res) => {
+
+      try {
+         let dataInicial = req.query.dataInicial;
+         let dataFinal = req.query.dataFinal;
+         let data = await this.custoService.obterRelatorio(dataInicial, dataFinal);
+         return res.status(200).json(data);
 
       } catch (e) {
          return this.tratarErro(e, res);

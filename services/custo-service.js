@@ -58,8 +58,8 @@ export class CustoService {
         return resultado;
     }
 
-    obterBalancoLancamentos = async (ano) => {
-        let lista = await this.lancamentoRepository.obterApartirDePorAno(ano);
+    obterBalancoLancamentos = async () => {
+        let lista = await this.lancamentoRepository.obterTodos();
 
         let totalSaida = 0;
         let totalEntrada = 0;
@@ -67,14 +67,45 @@ export class CustoService {
         lista.forEach(x => {
             if (x.eDoTipoSaida()) {
                 totalSaida += x.valor;
-            }
-            if (x.eDoTipoEntrada()) {
+            }else if (x.eDoTipoEntrada()) {
                 totalEntrada += x.valor;
             }
         });
+
 
         let totalSaldo = totalEntrada - totalSaida;
         
         return this.custoDto.montarBalancoLancamento(totalEntrada, totalSaida, totalSaldo);
     }
+
+    obterRelatorio = async (dataInicial, dataFinal) => {
+
+        let lancamentos = await this.lancamentoRepository.obterTodos();
+        let subcategorias = await this.subcategoriaRepository.obterTodasSubcategorias();
+       
+        let itens = [];
+        let totalRelatorio = 0;
+        let mascaraDollar = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+
+        for (let i = 0; i < subcategorias.length; i++) {
+            let subcategoria = subcategorias[i];
+            let lancamentosDaSubcategoria = lancamentos.filter(l => l.subcategoriaId === subcategoria.id && l.eDoTipoSaida());
+            let totalItem = lancamentosDaSubcategoria.reduce((t, atual) => { return t + atual.valor }, 0);
+            
+            let item = {
+               subcategoria: subcategoria.descricao,
+               total: mascaraDollar.format(totalItem)
+            }
+
+            if(totalItem > 0){
+                totalRelatorio += totalItem
+                itens.push(item);
+            }
+         }
+  
+        return this.custoDto.montarRelatorioCusto(itens, dataInicial, dataFinal, mascaraDollar.format(totalRelatorio));
+     }
 }

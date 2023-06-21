@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
+  "engines": {
+    "npm": "6.14.16",
+    "node": "12.22.12"
+  },
   "scripts": {
     "start": "babel-node server.js",
-    "test": "mocha  -r esm"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -16,10 +20,8 @@
     "@babel/preset-env": "^7.8.3",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
-    "esm": "^3.2.25",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
-    "node-mocks-http": "^1.8.1",
     "sinon": "^7.5.0",
     "supertest": "^4.0.2"
   },
@@ -29,7 +31,6 @@
     "class-transformer": "^0.2.3",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
-    "express-validator": "^6.5.0",
     "grpc": "^1.24.2",
     "grpc-caller": "^0.13.0",
     "http-proxy": "^1.18.0",
